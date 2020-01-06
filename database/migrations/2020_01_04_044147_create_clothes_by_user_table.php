@@ -18,6 +18,8 @@ class CreateClothesByUserTable extends Migration
             $table->string('name', 150);
             $table->string('description', 500);
             $table->integer('price')->unsigned();
+            $table->integer('user_id')->unsigned();
+
             $table->integer('category_id')->unsigned();
             $table->boolean('state')-> default(true);  
            

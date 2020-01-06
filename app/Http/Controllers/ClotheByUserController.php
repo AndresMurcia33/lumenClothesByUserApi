@@ -31,6 +31,7 @@ class ClotheByUserController extends Controller
             'clothe_by_users.price',
             'clothe_by_users.state',
             'clothe_by_users.category_id',
+            'clothe_by_users.user_id',
             'clothing_sizes.name as size',
             'clothing_brands.name as type',
             )
@@ -44,21 +45,17 @@ class ClotheByUserController extends Controller
     */
     public function store(Request $request){
 
-        if($request->isJson())
-        {
-            $this->validate($request, [
-                'name' => 'required|max:255',
-                'description' => 'required',
-                'price' => 'required|numeric',
-                'category_id'=> 'required|numeric' ,
-                'clothing_size_id' => 'required|numeric' ,
-                'clothing_brand_id'  => 'required|numeric' 
-            ]);
-            $newCategories = ClotheByUser::Create($request->all());
-            return $this->successReponse($newCategories , Response::HTTP_CREATED);
-        }else{
-             return $this->errorResponse('Request have be in Json',  Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'description' => 'required',
+            'price' => 'required|numeric',
+            'category_id'=> 'required|numeric' ,
+            'user_id'=>'required',
+            'clothing_size_id' => 'required|numeric' ,
+            'clothing_brand_id'  => 'required|numeric' 
+        ]);
+        $newCategories = ClotheByUser::Create($request->all());
+        return $this->successReponse($newCategories , Response::HTTP_CREATED);
     }
     /**
      * Return an specific Clothe
@@ -90,6 +87,7 @@ class ClotheByUserController extends Controller
             'description' => 'max:500',
             'price' => 'numeric',
             'category_id'=> 'numeric' ,
+            'user_id' => 'numeric',
             'clothing_size_id' => 'numeric' ,
             'clothing_brand_id'  => 'numeric' 
         ]);

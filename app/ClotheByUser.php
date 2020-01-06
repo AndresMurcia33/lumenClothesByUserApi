@@ -19,6 +19,7 @@ class ClotheByUser extends Model
         'price',
         'state',
         'category_id',
+        'user_id',
         'clothing_size_id',
         'clothing_brand_id'
     ];
